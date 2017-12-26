@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "client": "npm run start --prefix client",
+    "start": "concurrently \"node ./bin/www\" \"npm run client\""
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -13,5 +14,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }
