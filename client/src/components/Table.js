@@ -10,13 +10,6 @@ class App extends Component {
             .then(users => this.setState({ users }))
     }
 
-    rowGetter = ({ index }) => {
-        const data = this.state.users
-        if (data[index]) {
-            return data[index]
-        }
-    }
-
     render() {
         return (
             <div>
@@ -32,13 +25,13 @@ class App extends Component {
                     </table>
                 ))}
 
-                {/* <AutoSizer>
+                <AutoSizer>
                 {({ height, width }) => (
                     <Table
                     headerHeight={30}
                     height={height}
                     rowCount={10}
-                    rowGetter={ this.rowGetter }
+                    rowGetter={ ({index}) => this.state.users[index] }
                     rowHeight={50}
                     width={width}
                     >
@@ -56,7 +49,7 @@ class App extends Component {
                         />
                     </Table>
                 )}
-                </AutoSizer> */}
+                </AutoSizer>
             </div>
         )
     }
