@@ -36,16 +36,24 @@ class App extends Component {
                     width={width}
                     >
                         <Column
-                            label="Index"
+                            label="ID"
+                            dataKey="id"
+                            width={ 250 }
                         />
                         <Column
                             label="Name"
+                            dataKey="name"
+                            width={ 250 }
                         />
                         <Column
                             label="Username"
+                            dataKey="username"
+                            width={ 250 }
                         />
                         <Column
                             label="Email"
+                            dataKey="email"
+                            width={ 250 }
                         />
                     </Table>
                 )}
