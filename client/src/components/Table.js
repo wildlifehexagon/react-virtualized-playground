@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Table, Column } from 'react-virtualized'
+import { InfiniteLoader, Table, Column } from 'react-virtualized'
+import 'react-virtualized/styles.css'
 
-class App extends Component {
+class TableData extends Component {
     state = { users: [] }
 
     componentDidMount() {
@@ -13,12 +14,18 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>Users</h1>
-                {this.state.users.map(user => (
+                <h1 style={{ textAlign: 'center'}}>Users</h1>
+                    {/* <InfiniteLoader
+                        isRowLoaded={({ index }) => index < this.state.users.length}
+                        rowCount={this.state.users.length}
+                        loadMoreRows={this.loadMoreRows}
+                    >
+            
+                    {({onRowsRendered, registerChild}) => */}
                         <Table
                             headerHeight={50}
                             height={630}
-                            width={1100}
+                            width={1050}
                             rowCount={this.state.users.length}
                             rowGetter={ ({index}) => this.state.users[index] }
                             rowHeight={100}
@@ -44,21 +51,11 @@ class App extends Component {
                                 width={ 250 }
                             />
                         </Table>
-                ))}
-
-                {/* <table key={user.id} style={ { width: '100%' } }>
-                    <tbody>
-                        <tr>
-                            <td style={ { width: '25%' } }>{user.id}</td>
-                            <td style={ { width: '25%' } }>{user.name}</td>
-                            <td style={ { width: '25%' } }>{user.username}</td>
-                            <td style={ { width: '25%' } }>{user.email}</td>
-                        </tr>
-                    </tbody>
-                </table> */}                
+                    {/* }
+                    </InfiniteLoader> */}            
             </div>
         )
     }
 }
 
-export default App
+export default TableData
