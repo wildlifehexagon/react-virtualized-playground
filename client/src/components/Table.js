@@ -3,37 +3,37 @@ import { InfiniteLoader, Table, Column } from 'react-virtualized'
 import 'react-virtualized/styles.css'
 
 class TableData extends Component {
-    state = { users: [] }
+    state = { comments: [] }
 
     componentDidMount() {
         fetch('/data')
             .then(res => res.json())
-            .then(users => this.setState({ users }))
+            .then(comments => this.setState({ comments }))
     }
 
     render() {
         return (
             <div>
-                <h1 style={{ textAlign: 'center'}}>Users</h1>
-                    {/* <InfiniteLoader
-                        isRowLoaded={({ index }) => index < this.state.users.length}
-                        rowCount={this.state.users.length}
+                <h1 style={{ textAlign: 'center'}}>Comments</h1>
+                    <InfiniteLoader
+                        isRowLoaded={({ index }) => index < this.state.comments.length}
+                        rowCount={this.state.comments.length}
                         loadMoreRows={this.loadMoreRows}
                     >
             
-                    {({onRowsRendered, registerChild}) => */}
+                    {({onRowsRendered, registerChild}) =>
                         <Table
                             headerHeight={50}
                             height={630}
-                            width={1050}
-                            rowCount={this.state.users.length}
-                            rowGetter={ ({index}) => this.state.users[index] }
+                            width={1000}
+                            rowCount={this.state.comments.length}
+                            rowGetter={ ({index}) => this.state.comments[index] }
                             rowHeight={100}
                         >
                             <Column
                                 label="ID"
                                 dataKey="id"
-                                width={ 250 }
+                                width={ 50 }
                             />
                             <Column
                                 label="Name"
@@ -41,18 +41,18 @@ class TableData extends Component {
                                 width={ 250 }
                             />
                             <Column
-                                label="Username"
-                                dataKey="username"
-                                width={ 250 }
-                            />
-                            <Column
                                 label="Email"
                                 dataKey="email"
                                 width={ 250 }
                             />
+                            <Column
+                                label="Body"
+                                dataKey="body"
+                                width={ 350 }
+                            />
                         </Table>
-                    {/* }
-                    </InfiniteLoader> */}            
+                    }
+                    </InfiniteLoader>
             </div>
         )
     }
