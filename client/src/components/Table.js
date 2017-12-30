@@ -3,7 +3,9 @@ import { InfiniteLoader, Table, Column } from 'react-virtualized'
 import 'react-virtualized/styles.css'
 
 class TableData extends Component {
-    state = { comments: [] }
+    state = { 
+        comments: []
+     }
 
     componentDidMount() {
         fetch('/data')
@@ -11,24 +13,39 @@ class TableData extends Component {
             .then(comments => this.setState({ comments }))
     }
 
+    isRowLoaded = ({ index }) => {
+        return !!this.state.comments[index]
+    }
+
+    loadMoreRows = ({ startIndex, stopIndex }) => {
+        return fetch(`/data?startIndex=${startIndex}&stopIndex=${stopIndex}`)
+            .then(res => res.json())
+            .then(comments => this.setState({ comments }))
+    }
+
     render() {
+        const rowCount = this.state.comments.length
+
         return (
             <div>
                 <h1 style={{ textAlign: 'center'}}>Comments</h1>
                     <InfiniteLoader
-                        isRowLoaded={({ index }) => index < this.state.comments.length}
-                        rowCount={this.state.comments.length}
+                        isRowLoaded={this.isRowLoaded}
+                        rowCount={rowCount}
                         loadMoreRows={this.loadMoreRows}
+                        threshold={10}
                     >
             
                     {({onRowsRendered, registerChild}) =>
                         <Table
+                            ref={ registerChild }
                             headerHeight={50}
                             height={630}
                             width={1000}
-                            rowCount={this.state.comments.length}
+                            rowCount={rowCount}
                             rowGetter={ ({index}) => this.state.comments[index] }
-                            rowHeight={100}
+                            rowHeight={50}
+                            onRowsRendered={onRowsRendered}
                         >
                             <Column
                                 label="ID"
